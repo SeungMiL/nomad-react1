@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
+        integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/babel">
+        const root = document.getElementById('root');
+        //아래와 같이 쓰면 jsx 형식이 아니라 에러가 나옴(바벨필요)
+        function Title(){return <h3 id='title' onMouseEnter={() => console.log('마우스엔터')}>제일 멋있는 스팬</h3>};
+        // const h3 = React.createElement('h3',  {
+        //     id : 'title',
+        //     onMouseEnter : () => console.log('마우스엔터')
+        // }, '제일 멋있는 스팬');
+
+        const Button = () => ( <button  onClick={() => console.log('클릭클릭')} style={{ backgroundColor: 'tomato' }} >클릭해줭
+        </button>);
+        // const btn = React.createElement('button', {
+        //     onClick : () => console.log('클릭클릭'),
+        //     style : {backgroundColor : 'tomato'}
+        // }, '클릭 해줭');
+        const Container = () => (
+            <div>
+             <Title /> 
+             <Button />
+            </div>
+        )
+        ReactDOM.render(<Container />, root); 
+    </script>
+</body>
+
+</html>
