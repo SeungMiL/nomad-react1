@@ -96,3 +96,89 @@ ReactDOM.render(<Container />, root);
 
 3. 화살표 함수의 경우 괄호()로 감싸진 부분이 return 된다(return문을 작성하지 않아도 return 됨).
 <br>반면에 중괄호{}로 감싸진 다음과 같은 함수는 return문이 없다면 return 값을 반환하지 않는다.
+
+**jsx에 변수 추가 및 옛날 재렌더링 방법**
+
+```js
+const root = document.getElementById('root');
+
+let count = 0;
+function countUp(){
+    count = count + 1;
+    render();
+}
+function render(){
+    ReactDOM.render(<Container />, root); 
+}
+
+const Container = () => (
+    <div>
+        <h3>총 클릭 횟수 : {count}</h3>
+        <button onClick = {countUp}>클릭 해줭</button>
+    </div>
+)
+render()
+```
+**배운점**
+1. 리액트를 배우기 전에는 html을 먼저 작성하고 데이터 넣는 부분에 자바스크립트로 이벤트를 더해주고 UI를 업데이트 하는 방식이었으나, 리액트는 jsx로 html 구조와 비슷하게 만들고 데이터를 넣어서 변경해 줘야 할 구간에 변수를 넣을 수 있음
+
+2. 리액트의 장점은 모든 부분이 아닌 데이터가 바뀐 부분만 재렌더링 하게 해줌
+
+**useState를 이용한 재렌더링 방식**
+
+```js
+const root = document.getElementById('root');
+const App = () => {
+    const [counter, setCounter] = React.useState(0);
+    const onClick = () => {
+        setCounter(counter + 1);
+    }
+    return (
+        <div>
+        <h3>총 클릭 횟수 : {counter}</h3>
+        <button onClick={onClick}>클릭 해줭</button>
+    </div>
+    );
+}
+ReactDOM.render(<App />, root); 
+```
+
+**배운점**
+1. useState를 안쓰고 똑같은 효과를 배우기 위해서는 렌더 자체를 함수로 만들어서 데이터가 바뀌는 이벤트 함수에 렌더 함수를 넣어주는 것으로 변화를 일으킨 반면에, useState를 이용하여 state를 바꾸면 리액트가 컴포넌트를 refresh 해줌
+
+2.state를 세팅하는 데는 2가지 방법
+* 직접 할당 :setState(state +1)
+* 함수를 할당:setState(state => state +1) (함수의 첫번째 인자는 현재 state)
+
+현재 state랑 관련이 없는 값을 새로운 state로 하고싶은 경우에는 직접 할당,
+현재 state에 조금의 변화를 주어서 새로운 state를 주고 싶은 경우에는 함수를 할당
+
+
+**input에 useState 사용**
+
+
+```js
+const root = document.getElementById('root');
+const App = () => {
+    const [minutes, setMinutes] = React.useState();
+    const onChange = (e) => {
+        //input의 value 값을 가져옴
+        setMinutes(e.target.value)
+    }
+    return (
+        <div>
+            <h1>Super Converter</h1>
+            <label htmlFor="minutes">분</label>
+            <input value={minutes} id="minutes" placeholder="분" type="number" onChange={onChange}/>
+            <h3>You want to convert {minutes}</h3>
+            <label htmlFor="hours">시간</label>
+            <input id="hours" placeholder="시간" type="number"/>
+            
+        </div>
+    );
+}
+ReactDOM.render(<App />, root); 
+```
+
+**배운점**
+1. useState를 이용하여 input의 value값을 onchange 속성으로 쉽게 받아옴

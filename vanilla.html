@@ -20,25 +20,37 @@
     <script type="text/babel">
         const root = document.getElementById('root');
         //아래와 같이 쓰면 jsx 형식이 아니라 에러가 나옴(바벨필요)
-        function Title(){return <h3 id='title' onMouseEnter={() => console.log('마우스엔터')}>제일 멋있는 스팬</h3>};
+        // function Title(){return <h3 id='title' onMouseEnter={() => console.log('마우스엔터')}>제일 멋있는 스팬</h3>};
         // const h3 = React.createElement('h3',  {
         //     id : 'title',
         //     onMouseEnter : () => console.log('마우스엔터')
         // }, '제일 멋있는 스팬');
 
-        const Button = () => ( <button  onClick={() => console.log('클릭클릭')} style={{ backgroundColor: 'tomato' }} >클릭해줭
-        </button>);
+        // const Button = () => ( <button  onClick={() => console.log('클릭클릭')} style={{ backgroundColor: 'tomato' }} >클릭해줭
+        // </button>);
         // const btn = React.createElement('button', {
         //     onClick : () => console.log('클릭클릭'),
         //     style : {backgroundColor : 'tomato'}
         // }, '클릭 해줭');
-        const Container = () => (
-            <div>
-             <Title /> 
-             <Button />
-            </div>
-        )
-        ReactDOM.render(<Container />, root); 
+
+        const App = () => {
+            const [minutes, setMinutes] = React.useState();
+            const onChange = (e) => {
+                setMinutes(e.target.value)
+            }
+            return (
+                <div>
+                    <h1>Super Converter</h1>
+                    <label htmlFor="minutes">분</label>
+                    <input value={minutes} id="minutes" placeholder="분" type="number" onChange={onChange}/>
+                    <h3>You want to convert {minutes}</h3>
+                    <label htmlFor="hours">시간</label>
+                    <input id="hours" placeholder="시간" type="number"/>
+                    
+                </div>
+            );
+        }
+        ReactDOM.render(<App />, root); 
     </script>
 </body>
 
