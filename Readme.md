@@ -1,6 +1,6 @@
 # 노마드코더 ReactJS로 영화 웹 서비스 만들기
 
-## 리액트 탐구(2/26)
+## 리액트 탐구(2/26~)
 
 리액트가 왜 유용한가를 배우는 시간을 가짐.
 
@@ -165,15 +165,19 @@ const App = () => {
         //input의 value 값을 가져옴
         setMinutes(e.target.value)
     }
+    const reset = () => setMinutes(0);
     return (
         <div>
-            <h1>Super Converter</h1>
-            <label htmlFor="minutes">분</label>
-            <input value={minutes} id="minutes" placeholder="분" type="number" onChange={onChange}/>
-            <h3>You want to convert {minutes}</h3>
-            <label htmlFor="hours">시간</label>
-            <input id="hours" placeholder="시간" type="number"/>
-            
+            <div>
+                <h1>Super Converter</h1>
+                <label htmlFor="minutes">분</label>
+                <input value={minutes} id="minutes" placeholder="분" type="number" onChange={onChange} />
+            </div>
+            <div>
+                <label htmlFor="hours">시간</label>
+                <input value={Math.round(minutes/60)} id="hours" placeholder="시간" type="number" disabled/>
+            </div>
+            <button onClick={reset}>reset</button>
         </div>
     );
 }
@@ -182,3 +186,5 @@ ReactDOM.render(<App />, root);
 
 **배운점**
 1. useState를 이용하여 input의 value값을 onchange 속성으로 쉽게 받아옴
+2. Math.round() 속성을 이용하면 소수점 반올림 하여 정수로 변환
+3. disabled 속성을 이용하면 input에 값 못 넣게 할 수 있음
