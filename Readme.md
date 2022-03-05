@@ -188,3 +188,46 @@ ReactDOM.render(<App />, root);
 1. useState를 이용하여 input의 value값을 onchange 속성으로 쉽게 받아옴
 2. Math.round() 속성을 이용하면 소수점 반올림 하여 정수로 변환
 3. disabled 속성을 이용하면 input에 값 못 넣게 할 수 있음
+
+**input에 useState 사용2**
+
+```js
+const root = document.getElementById('root');
+const App = () => {
+    const [amount, setAmount] = React.useState(0);
+    const [flipped, setFlipped] = React.useState(false);
+
+    const onChange = (e) => {
+        setAmount(e.target.value)
+    }
+    const reset = () => setAmount(0);
+    const onFlip = () => {
+        reset();
+        //current는 이벤트가 달린 요소를 가리킴
+        setFlipped((current) => !current);
+    }
+    return (
+        <div>
+            <div>
+                <h1>Super Converter</h1>
+                <label htmlFor="minutes">분</label>
+                <input value={flipped ? amount *60 : amount} id="minutes" placeholder="분" type="number" onChange={onChange} disabled={flipped} />
+            </div>
+            <div>
+                <label htmlFor="hours">시간</label>
+                <input value={flipped ? amount : Math.round(amount/60)} id="hours" placeholder="시간" type="number"  disabled={!flipped}/>
+            </div>
+            <button onClick={reset}>reset</button>
+            <button onClick={onFlip}>Flip</button>
+        </div>
+    ) ;
+}
+ReactDOM.render(<App />, root); 
+```
+**배운점**
+1. 삼항연산자를 이용하여 if 문을 간단하게 구현함 <br>
+형태는 `(조건) ? true에 나오는 형태 : false에 나오는 형태`로 되 있음
+2. const onFlip = () => setFlipped(!flipped);
+-> flipped가 true라면 부정명제인 !flipped는 false
+-> false라면 true <br>
+state값으로 input을 enabled할지 disabled 할지를 결정할 수 있음
